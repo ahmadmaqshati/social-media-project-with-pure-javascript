@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- import bootsrapt -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<style>
+    body {
+        background-color: #f0ecff;
+
+    }
+
+    .card {
+        margin-bottom: 44px
+    }
+</style>
+
+<body>
+    <!-- NAVIGATION BAR  -->
+    <div class="container" style="margin-bottom: 66px;margin-top: 50px;">
+
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="col-9">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary shadow rounded-2 pt-2">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Tarmeez</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Profile</a>
+                                </li>
+                            </ul>
+
+                            <div id="logged-in-div" class="w-100 d-flex justify-content-end">
+                                <button id="login-btn" type="button" data-bs-target="#login-modal"
+                                    data-bs-toggle="modal" class="btn btn-outline-success mx-3">Login</button>
+                                <button id="register-btn" type="button"
+                                    class="btn btn-outline-success">Register</button>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <!--// NAVIGATION BAR //-->
+
+
+    <!-- MAIN CONTENT  -->
+    <div class="container mt-4">
+        <div class="d-flex justify-content-center">
+            <div class="col-9">
+                <!-- Posts -->
+                <div id="posts">
+
+                    <!---------------- Post1 ------------->
+
+                    <div class="card">
+                        <div class="card-header">
+                            <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
+                                src="./Pofile Pictures/user.png" alt="">
+                            <b>@yarhmm</b>
+                        </div>
+
+                        <div class="card-body">
+                            <img class="w-100" src="./placeholders/1.jpeg" alt="">
+                            <h6 class="fs-6 fw-medium text-secondary">2 min ago</h6>
+                            <h4>Hello World</h4>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit
+                                illum voluptatum
+                                perferendis facilis fuga ducimus? Accusamus, soluta aliquid dignissimos labore
+                                consequatur excepturi dolor quia harum, provident iure accusantium porro a.</p>
+                            <hr>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path
+                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+                                </svg>
+                                <span>(3) Comments</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--////////////// Post1 /////////////-->
+
+                    <!---------------- Post2 ------------->
+
+                    <div class="card">
+                        <div class="card-header">
+                            <img class="rounded-circle border border-1" style="width: 4%; height: 4vh;"
+                                src="./Pofile Pictures/user.png" alt="">
+                            <b>@yarhmm</b>
+                        </div>
+
+                        <div class="card-body">
+                            <img class="w-100" src="./placeholders/1.jpeg" alt="">
+                            <h6 class="fs-6 fw-medium text-secondary">2 min ago</h6>
+                            <h4>Hello World</h4>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit illum voluptatum
+                                perferendis facilis fuga ducimus? Accusamus, soluta aliquid dignissimos labore
+                                consequatur excepturi dolor quia harum, provident iure accusantium porro a.</p>
+                            <hr>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pen" viewBox="0 0 16 16">
+                                    <path
+                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+                                </svg>
+                                <span>(3) Comments</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--////////////// Post2 /////////////-->
+
+
+
+
+
+                </div>
+                <!--// Posts //-->
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--// MAIN CONTENT  //-->
+</body>
+
+</html>
