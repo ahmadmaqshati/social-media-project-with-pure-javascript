@@ -24,6 +24,35 @@
 
 
 <body>
+    <!-- login-modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">username</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">password</label>
+                            <input type="password" class="form-control" id="recipient-name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--// login-modal //-->
     <!-- NAVIGATION BAR  -->
     <div class="container" style="margin-bottom: 66px;margin-top: 50px;">
 
@@ -48,8 +77,8 @@
                             </ul>
 
                             <div id="logged-in-div" class="w-100 d-flex justify-content-end">
-                                <button id="login-btn" type="button" data-bs-target="#login-modal"
-                                    data-bs-toggle="modal" class="btn btn-outline-success mx-3">Login</button>
+                                <button id="login-btn" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" class="btn btn-outline-success mx-3">Login</button>
                                 <button id="register-btn" type="button"
                                     class="btn btn-outline-success">Register</button>
                             </div>
@@ -142,6 +171,15 @@
     <!--// MAIN CONTENT  //-->
 </body>
 <script>
+    function login() {
+        /* Close Login-Modal after Login Process */
+        const modal = document.getElementById('exampleModal')
+        const modalInstance = bootstrap.Modal.getInstance(modal)
+        modalInstance.hide()
+        /*=== Close Login-Modal after Login Process ===*/
+    }
+
+
     const baseUrl = 'https://tarmeezacademy.com/api/v1'
     axios.get(`${baseUrl}/posts`)
         .then((response) => {
@@ -149,7 +187,9 @@
             const posts = response.data.data
             for (post of posts) {
 
-                let postTitle
+
+
+                /* let postTitle
                 if (post.title == null) {
                     postTitle = ''
                 } else {
@@ -162,19 +202,19 @@
                 } else {
                     userEmail = post.author.email
                 }
-
+ */
                 document.getElementById('posts').innerHTML += `
                 <div class="card">
                         <div class="card-header">
                             <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
                                 src=${post.author.profile_image} alt="">
-                            <b>${userEmail}</b>
+                            <b>${post.author.email ? post.author.email : ''}</b>
                         </div>
 
                         <div class="card-body">
                             <img class="w-100" src=${post.image} alt="">
                             <h6 class="fs-6 fw-medium text-secondary">${post.created_at}</h6>
-                            <h4>${postTitle}</h4>
+                            <h4>${post.title ? post.title : ''}</h4>
                             <p>${post.body}</p>
                             <hr>
                             <div>
