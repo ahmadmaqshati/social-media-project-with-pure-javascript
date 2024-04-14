@@ -25,7 +25,7 @@
 
 <body>
     <!-- login-modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -36,11 +36,11 @@
                     <form>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">username</label>
-                            <input type="text" class="form-control" id="username">
+                            <input type="text" class="form-control" id="username" value="ahmad99">
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">password</label>
-                            <input type="password" class="form-control" id="password">
+                            <input type="password" class="form-control" id="password" value="123456">
                         </div>
                     </form>
                 </div>
@@ -78,9 +78,12 @@
 
                             <div id="logged-in-div" class="w-100 d-flex justify-content-end">
                                 <button id="login-btn" type="button" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal" class="btn btn-outline-success mx-3">Login</button>
+                                    data-bs-target="#login-modal" class="btn btn-outline-success mx-3">Login</button>
                                 <button id="register-btn" type="button"
                                     class="btn btn-outline-success">Register</button>
+
+                                <button onclick="logout()" id="logout-btn" type="button"
+                                    class="btn btn-outline-danger mx-3">Logout</button>
                             </div>
 
                         </div>
@@ -167,11 +170,11 @@
         </div>
 
     </div>
-
     <!--// MAIN CONTENT  //-->
 </body>
-<script>
 
+<script>
+    tokenCheck()
     const baseUrl = 'https://tarmeezacademy.com/api/v1'
     axios.get(`${baseUrl}/posts`)
         .then((response) => {
@@ -224,8 +227,6 @@
 
         })
 
-
-
     function handleLoginClicked() {
         const lginUrl = `${baseUrl}/login`
         const username = document.getElementById('username').value
@@ -238,6 +239,9 @@
         axios.post(lginUrl, loginPramers)
             .then((response) => {
                 console.log(response.data);
+                localStorage.setItem('token', response.data.token)
+                localStorage.setItem('user', JSON.stringify(response.data.user))
+                tokenCheck()
             })
 
         /* Closing Login-Modal after Login Process */
@@ -246,6 +250,29 @@
         modalInstance.hide()
         /*=== Closing Login-Modal after Login Process ===*/
     }
+
+    function logout() {
+        localStorage.removeItem('token')
+        tokenCheck()
+    }
+
+    function tokenCheck() {
+        const token = localStorage.getItem('token')
+        const loginBtn = document.getElementById('login-btn')
+        const registerBtn = document.getElementById('register-btn')
+        const logoutBtn = document.getElementById('logout-btn')
+        if (token) {
+            loginBtn.style.visibility = 'hidden'
+            registerBtn.style.visibility = 'hidden'
+            logoutBtn.style.visibility = 'visible'
+        } else {
+            logoutBtn.style.visibility = 'hidden'
+            loginBtn.style.visibility = 'visible'
+            registerBtn.style.visibility = 'visible'
+        }
+    }
+
+
 
 </script>
 
