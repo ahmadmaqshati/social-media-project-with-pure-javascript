@@ -83,7 +83,7 @@
                                     class="btn btn-outline-success">Register</button>
 
                                 <button onclick="logout()" id="logout-btn" type="button"
-                                    class="btn btn-outline-danger mx-3">Logout</button>
+                                    class="btn btn-outline-danger">Logout</button>
                             </div>
 
                         </div>
@@ -262,13 +262,13 @@
         const registerBtn = document.getElementById('register-btn')
         const logoutBtn = document.getElementById('logout-btn')
         if (token) {
-            loginBtn.style.visibility = 'hidden'
-            registerBtn.style.visibility = 'hidden'
-            logoutBtn.style.visibility = 'visible'
+            loginBtn.style.display = 'none'
+            registerBtn.style.display = 'none'
+            logoutBtn.style.display = 'block'
         } else {
-            logoutBtn.style.visibility = 'hidden'
-            loginBtn.style.visibility = 'visible'
-            registerBtn.style.visibility = 'visible'
+            logoutBtn.style.display = 'none'
+            loginBtn.style.display = 'block'
+            registerBtn.style.display = 'block'
         }
     }
 
