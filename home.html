@@ -240,6 +240,11 @@
                 console.log(response.data);
             })
 
+        /* Closing Login-Modal after Login Process */
+        const modal = document.getElementById('login-modal')
+        const modalInstance = bootstrap.Modal.getInstance(modal)
+        modalInstance.hide()
+        /*=== Closing Login-Modal after Login Process ===*/
     }
 
 </script>
