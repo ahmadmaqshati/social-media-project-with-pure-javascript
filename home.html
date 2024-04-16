@@ -8,22 +8,45 @@
     <!-- import bootsrapt -->
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js">
+    </script>
+
     <!-- import axios -->
     <script src="node_modules/axios/dist/axios.min.js"></script>
 </head>
 <style>
     body {
-        background-color: #f0ecff;
+        background-color: #f0f2f5;
 
     }
 
     .card {
-        margin-bottom: 44px
+        margin-bottom: 44px;
+    }
+
+    .alert-div {
+        background-color: #00000080;
     }
 </style>
 
 
 <body>
+    <!--ALERT FOR LOGIN && LOGOUT -->
+    <div style="display: flex;justify-content: end;height: 16px;">
+        <div class="alert-div alert alert-danger position-fixed top-0 w-25 fw-bold fs-3 text-center text-white z-3 "
+            id="login-success-alert" role="alert" style="display:none;">
+            Logged in Successfully
+        </div>
+        <div class="alert-div alert alert-danger position-fixed top-0 w-25 fw-bold fs-3 text-center text-white z-3"
+            id="logout-success-alert" role="alert" style="display:none;">
+            Logged out Successfully
+
+        </div>
+    </div>
+    <!-- =====ALERT FOR LOGIN && LOGOUT===== -->
+
+
     <!-- login-modal -->
     <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -171,10 +194,12 @@
 
     </div>
     <!--// MAIN CONTENT  //-->
+
 </body>
 
 <script>
-    tokenCheck()
+
+    //API REQUEST FOR POSTS
     const baseUrl = 'https://tarmeezacademy.com/api/v1'
     axios.get(`${baseUrl}/posts`)
         .then((response) => {
@@ -190,7 +215,7 @@
                 } else {
                     postTitle = post.title
                 }
-
+ 
                 let userEmail
                 if (post.author.email == null) {
                     userEmail = ''
@@ -227,6 +252,7 @@
 
         })
 
+    //API REQUEST FOR A USER LOGIN
     function handleLoginClicked() {
         const lginUrl = `${baseUrl}/login`
         const username = document.getElementById('username').value
@@ -241,21 +267,27 @@
                 console.log(response.data);
                 localStorage.setItem('token', response.data.token)
                 localStorage.setItem('user', JSON.stringify(response.data.user))
+                /* Closing Login-Modal after Login Process */
+                const modal = document.getElementById('login-modal')
+                const modalInstance = bootstrap.Modal.getInstance(modal)
+                modalInstance.hide()
+                /*=== Closing Login-Modal after Login Process ===*/
+                showLoginSuccesAlert()
                 tokenCheck()
+                //'Logged in Successfully'
             })
-
-        /* Closing Login-Modal after Login Process */
-        const modal = document.getElementById('login-modal')
-        const modalInstance = bootstrap.Modal.getInstance(modal)
-        modalInstance.hide()
-        /*=== Closing Login-Modal after Login Process ===*/
     }
 
+    //REMOVE THE TOKEN FROM LOCALSTORAGE WHEN LOGGING OUT
     function logout() {
         localStorage.removeItem('token')
+        localStorage.removeItem('user')
+        showLogoutSuccesAlert()
         tokenCheck()
     }
 
+
+    //SHOW THE APPROPRIATE BUTTONS BASED ON THE TOKEN STATUS
     function tokenCheck() {
         const token = localStorage.getItem('token')
         const loginBtn = document.getElementById('login-btn')
@@ -271,6 +303,31 @@
             registerBtn.style.display = 'block'
         }
     }
+
+    /*================================================================
+      Call the tokenCheck function directly in order to know the token status,
+      and based on knowing the token status,
+      the appropriate buttons are shown
+      ================================================================*/
+    tokenCheck()
+    /*=================================================================*/
+
+
+    //ALERT-LOGIC FOR LOGIN && LOGOUT    
+    function showLoginSuccesAlert() {
+        $('#login-success-alert').fadeIn(1000);
+        setTimeout(function () {
+            $('#login-success-alert').fadeOut(1000);
+        }, 2000);
+    }
+
+    function showLogoutSuccesAlert() {
+        $('#logout-success-alert').fadeIn(1000);
+        setTimeout(function () {
+            $('#logout-success-alert').fadeOut(1000);
+        }, 2000);
+    }
+
 
 
 
