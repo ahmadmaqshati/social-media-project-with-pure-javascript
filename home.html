@@ -36,13 +36,9 @@
     <div style="display: flex;justify-content: end;height: 16px;">
         <div class="alert-div alert alert-danger position-fixed top-0 w-25 fw-bold fs-3 text-center text-white z-3 "
             id="login-success-alert" role="alert" style="display:none;">
-            Logged in Successfully
-        </div>
-        <div class="alert-div alert alert-danger position-fixed top-0 w-25 fw-bold fs-3 text-center text-white z-3"
-            id="logout-success-alert" role="alert" style="display:none;">
-            Logged out Successfully
 
         </div>
+
     </div>
     <!-- =====ALERT FOR LOGIN && LOGOUT===== -->
 
@@ -267,14 +263,15 @@
                 console.log(response.data);
                 localStorage.setItem('token', response.data.token)
                 localStorage.setItem('user', JSON.stringify(response.data.user))
+
                 /* Closing Login-Modal after Login Process */
                 const modal = document.getElementById('login-modal')
                 const modalInstance = bootstrap.Modal.getInstance(modal)
                 modalInstance.hide()
                 /*=== Closing Login-Modal after Login Process ===*/
-                showLoginSuccesAlert()
+
+                showSuccesAlert('Logged In Successfully')
                 tokenCheck()
-                //'Logged in Successfully'
             })
     }
 
@@ -282,7 +279,7 @@
     function logout() {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
-        showLogoutSuccesAlert()
+        showSuccesAlert('Logged Out Successfully')
         tokenCheck()
     }
 
@@ -314,20 +311,15 @@
 
 
     //ALERT-LOGIC FOR LOGIN && LOGOUT    
-    function showLoginSuccesAlert() {
+    function showSuccesAlert(SuccessMassage) {
         $('#login-success-alert').fadeIn(1000);
+        document.getElementById('login-success-alert').innerHTML = SuccessMassage
         setTimeout(function () {
             $('#login-success-alert').fadeOut(1000);
+            document.getElementById('login-success-alert').innerHTML = SuccessMassage
+
         }, 2000);
     }
-
-    function showLogoutSuccesAlert() {
-        $('#logout-success-alert').fadeIn(1000);
-        setTimeout(function () {
-            $('#logout-success-alert').fadeOut(1000);
-        }, 2000);
-    }
-
 
 
 
