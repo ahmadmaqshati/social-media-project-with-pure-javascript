@@ -49,24 +49,24 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">username</label>
+                            <label for="recipient-name" class="col-form-label">Username</label>
                             <input type="text" class="form-control" id="username" value="ahmad99">
                         </div>
                         <div class="mb-3">
-                            <label for="message-text" class="col-form-label">password</label>
+                            <label for="message-text" class="col-form-label">Password</label>
                             <input type="password" class="form-control" id="password" value="123456">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button onclick="handleLoginClicked()" type="button" class="btn btn-primary">login</button>
+                    <button onclick="handleLoginClicked()" type="button" class="btn btn-primary">Login</button>
                 </div>
             </div>
         </div>
@@ -85,21 +85,21 @@
                     <form>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Name</label>
-                            <input type="text" class="form-control" id="name" value="ahmad99">
+                            <input type="text" class="form-control" id="name" value="YarobAlmostafa">
                         </div>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Username</label>
-                            <input type="text" class="form-control" id="username" value="ahmad99">
+                            <input type="text" class="form-control" id="username" value="hani900">
                         </div>
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">Password</label>
-                            <input type="password" class="form-control" id="password" value="123456">
+                            <input type="password" class="form-control" id="password" value="123456789">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button onclick="handleLoginClicked()" type="button" class="btn btn-primary">Register</button>
+                    <button onclick="handleRegisterClicked()" type="button" class="btn btn-primary">Register</button>
                 </div>
             </div>
         </div>
@@ -275,7 +275,7 @@
                 let currentPostTagsId = `post-tags${post.id}`
                 document.getElementById(currentPostTagsId).innerHTML = ''
                 for (tag of post.tags) {
-                    console.log(tag.name);
+                    /* console.log(tag.name); */
                     document.getElementById(currentPostTagsId).innerHTML += `
                       <button class="btn btn-sm rounded-5 text-white fw-semibold" style="background-color: gray;">${tag.name}</button>
                     `
@@ -284,11 +284,11 @@
 
         })
 
-    //API REQUEST FOR A USER LOGIN
+    //API REQUEST FOR A LOGIN
     function handleLoginClicked() {
-        const lginUrl = `${baseUrl}/login`
-        const username = document.getElementById('username').value
-        const password = document.getElementById('password').value
+        let lginUrl = `${baseUrl}/login`
+        let username = document.getElementById('username').value
+        let password = document.getElementById('password').value
 
         const loginPramers = {
             "username": username,
@@ -310,6 +310,39 @@
                 tokenCheck()
             })
     }
+
+
+
+    //API REQUEST FOR Register 
+    function handleRegisterClicked() {
+        const registerUrl = `${baseUrl}/register`
+        let username = document.getElementById('username').value
+        let password = document.getElementById('password').value
+        let name = document.getElementById('name').value
+
+        const registerPramers = {
+            "username": username,
+            "password": password,
+            "name": name
+        }
+        axios.post('https://tarmeezacademy.com/api/v1/register', registerPramers)
+            .then((response) => {
+                console.log(response.data);
+                return
+                localStorage.setItem('token', response.data.token)
+                localStorage.setItem('user', JSON.stringify(response.data.user))
+
+                /* Closing Login-Modal after Login Process */
+                /*   const modal = document.getElementById('login-modal')
+                  const modalInstance = bootstrap.Modal.getInstance(modal)
+                  modalInstance.hide() */
+                /*=== Closing Login-Modal after Login Process ===*/
+
+                showSuccesAlert('Logged In Successfully')
+                tokenCheck()
+            })
+    }
+
 
     //REMOVE THE TOKEN FROM LOCALSTORAGE WHEN LOGGING OUT
     function logout() {
