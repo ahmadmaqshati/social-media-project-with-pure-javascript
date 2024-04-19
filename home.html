@@ -32,18 +32,13 @@
 
 
 <body>
-    <div>
-
-    </div>
-    <!-- <span>
-        <button class="btn bg-secondary rounded-5 text-white">policy</button>
-    </span> -->
     <!--ALERT FOR LOGIN && LOGOUT -->
     <div style="display: flex;justify-content: end;height: 16px;">
         <div class="alert-div alert alert-danger position-fixed top-0 w-25 fw-bold fs-3 text-center text-white z-3 "
             id="login-success-alert" role="alert" style="display:none;">
-
         </div>
+
+    </div>
 
     </div>
     <!-- =====ALERT FOR LOGIN && LOGOUT===== -->
@@ -78,6 +73,39 @@
     </div>
     <!--// login-modal //-->
 
+    <!-- register-modal -->
+    <div class="modal fade" id="register-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Register A New User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Name</label>
+                            <input type="text" class="form-control" id="name" value="ahmad99">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Username</label>
+                            <input type="text" class="form-control" id="username" value="ahmad99">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Password</label>
+                            <input type="password" class="form-control" id="password" value="123456">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button onclick="handleLoginClicked()" type="button" class="btn btn-primary">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--// register-modal //-->
+
     <!-- NAVIGATION BAR  -->
     <div class="container" style="margin-bottom: 66px;margin-top: 50px;">
 
@@ -104,8 +132,9 @@
                             <div id="logged-in-div" class="w-100 d-flex justify-content-end">
                                 <button id="login-btn" type="button" data-bs-toggle="modal"
                                     data-bs-target="#login-modal" class="btn btn-outline-success mx-3">Login</button>
-                                <button id="register-btn" type="button"
-                                    class="btn btn-outline-success">Register</button>
+
+                                <button id="register-btn" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#register-modal" class="btn btn-outline-success">Register</button>
 
                                 <button onclick="logout()" id="logout-btn" type="button"
                                     class="btn btn-outline-danger">Logout</button>
