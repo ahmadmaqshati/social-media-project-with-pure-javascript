@@ -119,10 +119,6 @@
     </div>
     <!--// register-modal //-->
 
-
-
-
-
     <!-- add-post-modal -->
     <div class="modal fade" id="add-post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -135,16 +131,17 @@
                     <form>
                         <div class="mb-3">
                             <label for="recipient-name" class="col-form-label">Title</label>
-                            <input type="text" class="form-control" id="username" value="">
+                            <input type="text" class="form-control" id="post-title" value="">
                         </div>
                         <div class="mb-3">
-                            <textarea style="width: 100%;height: 100px;border-radius: 10px;resize: none;"></textarea>
+                            <textarea id="post-body" style="width: 100%;height:100px;border-radius:10px;resize:
+                            none;"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create</button>
+                    <button onclick="createNewPost()" type="button" class="btn btn-primary">Create</button>
                 </div>
             </div>
         </div>
@@ -160,9 +157,6 @@
     <!-- //POST ADD BUTTON// -->
 
 
-
-
-
     <!--ALERT FOR LOGIN && LOGOUT -->
     <div style="display: flex;justify-content: end;height: 16px;">
         <div class="alert-div alert2-div alert alert-danger position-fixed top-0 w-25 fw-medium fs-5 text-center z-3 "
@@ -172,8 +166,6 @@
 
     </div>
     <!-- =====ALERT FOR LOGIN && LOGOUT===== -->
-
-
 
 
     <!-- NAVIGATION BAR  -->
@@ -300,64 +292,70 @@
 </body>
 
 <script>
-
-    //API REQUEST FOR POSTS
     const baseUrl = 'https://tarmeezacademy.com/api/v1'
-    axios.get(`${baseUrl}/tags/1/posts`)
+    console.log(1);
+    axios.get(`${baseUrl}/posts`)
         .then((response) => {
-            console.log(response.data);
-            document.getElementById('posts').innerHTML = ''
-            const posts = response.data.data
-            for (post of posts) {
-                document.getElementById('posts').innerHTML += `
-                <div class="card">
-                        <div class="card-header">
-                            <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
-                                src=${post.author.profile_image} alt="">
-                            <b>${post.author.email ? post.author.email : ''}</b>
-                        </div>
+            console.log(1);
 
-                        <div class="card-body">
-                            <img class="w-100" src=${post.image} alt="">
-                            <h6 class="fs-6 fw-medium text-secondary">${post.created_at}</h6>
-                            <h4>${post.title ? post.title : ''}</h4>
-                           
-                            <p>${post.body}</p>
-                            <hr>
-                            <div style="display: flex;align-items: center;gap:6px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pen" viewBox="0 0 16 16">
-                                    <path
-                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
-                                </svg>
-                                <span>
-                                    (${post.comments_count}) Comments
-                                </span>
-                               
-                                <span id=post-tags${post.id}>
-                                              
-                                </span>
-                               
-                         
-                                </div>
-                        </div>
-                    </div>
-                `
+            console.log(response.data);
+            //document.getElementById('posts').innerHTML = '' 
+            const posts = response.data.data
+            for (let post of posts) {
+                console.log(1111);
+                document.getElementById('posts').innerHTML += `
+                 <div class="card">
+                         <div class="card-header">
+                             <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
+                                 src=${post.author.profile_image} alt="">
+                             <b>${post.author.email ? post.author.email : ''}</b>
+                         </div>
+ 
+                         <div class="card-body">
+                             <img class="w-100" src=${post.image} alt="">
+                             <h6 class="fs-6 fw-medium text-secondary">${post.created_at}</h6>
+                             <h4>${post.title ? post.title : ''}</h4>
+                            
+                             <p>${post.body}</p>
+                             <hr>
+                             <div style="display: flex;align-items: center;gap:6px;">
+                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-pen" viewBox="0 0 16 16">
+                                     <path
+                                         d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+                                 </svg>
+                                 <span>
+                                     (${post.comments_count}) Comments
+                                 </span>
+                                
+                                 <span id=post-tags${post.id}>
+                                               
+                                 </span>
+                                 
+                          
+                                 </div>
+                         </div>
+                     </div>
+                 `
                 let currentPostTagsId = `post-tags${post.id}`
                 document.getElementById(currentPostTagsId).innerHTML = ''
                 for (tag of post.tags) {
-                    /* console.log(tag.name); */
+                    console.log(tag.name);
                     document.getElementById(currentPostTagsId).innerHTML += `
-                      <button class="btn btn-sm rounded-5 text-white fw-semibold" style="background-color: gray;">${tag.name}</button>
-                    `
+                       <button class="btn btn-sm rounded-5 text-white fw-semibold" style="background-color: gray;">${tag.name}</button>
+                     `
                 }
             }
 
         })
 
+
+
+
+
     //API REQUEST FOR A LOGIN
     function handleLoginClicked() {
-        let lginUrl = `${baseUrl}/login`
+        /*  let lginUrl = `${baseUrl}/login` */
         let username = document.getElementById('username').value
         let password = document.getElementById('password').value
 
@@ -365,7 +363,7 @@
             "username": username,
             "password": password
         }
-        axios.post(lginUrl, loginPramers)
+        axios.post(`${baseUrl}/login`, loginPramers)
             .then((response) => {
                 console.log(response.data);
                 localStorage.setItem('token', response.data.token)
@@ -401,8 +399,7 @@
         const modalInstance = bootstrap.Modal.getInstance(modal)
         modalInstance.hide()
         /*=== Closing Register-Modal after Register Process ===*/
-        axios.post('https://tarmeezacademy.com/api/v1/register', registerPramers)
-
+        axios.post(`${baseUrl}/register`, registerPramers)
             .then((response) => {
                 console.log(response.data);
                 localStorage.setItem('token', response.data.token)
@@ -465,7 +462,7 @@
 
 
     //ALERT LOGIC FOR LOGIN && LOGOUT    
-    function showAlert(customMassage, color) {
+    function showAlert(customMassage) {
 
 
         $('#login-success-alert').fadeIn(1000);
@@ -477,6 +474,29 @@
         }, 3000);
     }
 
+
+
+
+    //API REQUEST FOR CREATE-POST
+    function createNewPost() {
+        const title = document.getElementById('post-title').value
+        const body = document.getElementById('post-body').value
+
+        const postPramers = {
+            'title': title,
+            'body': body,
+
+        }
+        const token = localStorage.getItem('token')
+
+        const headers = { 'Authorization': `Bearer ${token}` }
+
+
+        axios.post(`${baseUrl}/posts`, postPramers, { headers: headers })
+            .then((response) => {
+                console.log(response);
+            })
+    }
 
 
 
