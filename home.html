@@ -17,12 +17,14 @@
 </head>
 <style>
     body {
-        background-color: #f0f2f5;
+        background-color: #E8E8E8;
 
     }
 
     .card {
         margin-bottom: 44px;
+        box-shadow: 0 10px 10px rgb(0 0 0 / 40%);
+
     }
 
     .alert-div {
@@ -51,6 +53,49 @@
         cursor: pointer;
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
 
+    }
+
+    .login:hover {
+        padding: 0px 40px;
+    }
+
+    .register:hover {
+        padding: 0px 40px;
+    }
+
+    .login,
+    .register {
+        border: 3px solid #CE93D8;
+        transition: all 1s ease 0s;
+        box-shadow: 0px 0px 18px #768876;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+
+
+    .logout {
+        border: 3px solid #CE93D8;
+        transition: all 1s ease 0s;
+        box-shadow: 0px 0px 18px #eb41417a;
+        border-radius: 20px;
+        font-weight: 700;
+    }
+
+    .nav-link {
+        font-weight: 600;
+    }
+
+    .nav-link:after {
+        content: "";
+        display: block;
+        background-color: gray;
+        width: 0%;
+        height: 3px;
+        transition: width 0.7s;
+    }
+
+    .nav-link:hover:after {
+        width: 100%;
     }
 </style>
 
@@ -141,6 +186,7 @@
                             <input type="text" class="form-control" id="post-title" value="">
                         </div>
                         <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Details</label>
                             <textarea id="post-body" style="width: 100%;height:100px;border-radius:10px;resize:
                         none;"></textarea>
                         </div>
@@ -189,7 +235,7 @@
             <div class="col-9">
                 <nav class="navbar navbar-expand-lg bg-body-tertiary shadow rounded-2 pt-2">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Tarmeez</a>
+                        <a class="nav-link navbar-brand" href="home.html">Tarmeez</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -209,11 +255,11 @@
 
                                 <div id="login-register-div" class="d-flex">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#login-modal"
-                                        class="btn btn-outline-success mx-3">Login</button>
+                                        class="login btn btn-outline-success mx-3">Login</button>
 
                                     <!--hello -->
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#register-modal"
-                                        class="btn btn-outline-success">Register</button>
+                                        class="register btn btn-outline-success">Register</button>
                                 </div>
 
                                 <div id="logout-div">
@@ -221,7 +267,7 @@
                                         src="./Pofile Pictures/todo.png" alt="">
                                     <b id="user-name">yarob999</b>
                                     <button onclick="logout()" type="button"
-                                        class="btn btn-outline-danger">Logout</button>
+                                        class="logout btn btn-outline-danger">Logout</button>
                                 </div>
                             </div>
 
@@ -313,7 +359,7 @@
 
 
 </body>
-
+<script src="./mainLogic.js"></script>
 <script>
     let currentPage = 1
     let lastPage = 1
@@ -329,7 +375,7 @@
     //=====// INFINITE SCROLL //====//
 
 
-    const baseUrl = 'https://tarmeezacademy.com/api/v1'
+    //=====API Request for Posts====//
     function getPost(page = 1, reload = true) {
         axios.get(`${baseUrl}/posts?limit=4&page=${page}`)
             .then((response) => {
@@ -343,45 +389,45 @@
                 const posts = response.data.data
                 for (let post of posts) {
                     document.getElementById('posts').innerHTML += `
-                 <div class="card">
-                         <div class="card-header">
-                             <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
-                                 src=${post.author.profile_image} alt="">
-                             <b>${post.author.email ? post.author.email : ''}</b>
+            <div class="card">
+                 <div class="card-header">
+                     <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
+                         src=${post.author.profile_image} alt="">
+                     <b>${post.author.email ? post.author.email : ''}</b>
+                 </div>
+
+            <div class="card-body" onClick='postClicked(${post.id})' style='cursor: pointer;'>
+                     <img class="w-100" src=${post.image} alt="">
+                     <h6 class="fs-6 fw-medium text-secondary">${post.created_at}</h6>
+                     <h4>${post.title ? post.title : ''}</h4>
+                    
+                     <p>${post.body}</p>
+                     <hr>
+                     <div style="display: flex;align-items: center;gap:6px;">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-pen" viewBox="0 0 16 16">
+                             <path
+                                 d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+                         </svg>
+                         <span>
+                             (${post.comments_count}) Comments
+                         </span>
+                        
+                         <span id=post-tags${post.id}>
+                                       
+                         </span>
+                         
+                  
                          </div>
- 
-                         <div class="card-body">
-                             <img class="w-100" src=${post.image} alt="">
-                             <h6 class="fs-6 fw-medium text-secondary">${post.created_at}</h6>
-                             <h4>${post.title ? post.title : ''}</h4>
-                            
-                             <p>${post.body}</p>
-                             <hr>
-                             <div style="display: flex;align-items: center;gap:6px;">
-                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-pen" viewBox="0 0 16 16">
-                                     <path
-                                         d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
-                                 </svg>
-                                 <span>
-                                     (${post.comments_count}) Comments
-                                 </span>
-                                
-                                 <span id=post-tags${post.id}>
-                                               
-                                 </span>
-                                 
-                          
-                                 </div>
-                         </div>
-                     </div>
-                 `
+                 </div>
+             </div>
+         `
                     let currentPostTagsId = `post-tags${post.id}`
                     document.getElementById(currentPostTagsId).innerHTML = ''
                     for (tag of post.tags) {
                         document.getElementById(currentPostTagsId).innerHTML += `
-                       <button class="btn btn-sm rounded-5 text-white fw-semibold" style="background-color: gray;">${tag.name}</button>
-                     `
+               <button class="btn btn-sm rounded-5 text-white fw-semibold" style="background-color: gray;">${tag.name}</button>
+             `
                     }
                 }
 
@@ -389,161 +435,8 @@
 
 
     }
-
-
+    //=====//API Request for Posts//====//
     getPost()
-
-
-
-
-
-
-    //API REQUEST FOR A LOGIN
-    function handleLoginClicked() {
-        let username = document.getElementById('username').value
-        let password = document.getElementById('password').value
-
-        const loginPramers = {
-            "username": username,
-            "password": password
-        }
-        axios.post(`${baseUrl}/login`, loginPramers)
-            .then((response) => {
-                console.log(response.data);
-                localStorage.setItem('token', response.data.token)
-                localStorage.setItem('user', JSON.stringify(response.data.user))
-
-
-                /* Closing Login-Modal after Login Process */
-                const modal = document.getElementById('login-modal')
-                const modalInstance = bootstrap.Modal.getInstance(modal)
-                modalInstance.hide()
-                /*=== Closing Login-Modal after Login Process ===*/
-
-                showAlert('Logged In Successfully')
-                tokenCheck()
-            }).catch((error) => {
-                console.log(error);
-                const message = error.response.data.message
-                console.log(message);
-                showAlert(message)
-
-                /* Closing Add-Post-Modal after Adding Process */
-                const modal = document.getElementById('login-modal')
-                const modalInstance = bootstrap.Modal.getInstance(modal)
-                modalInstance.hide()
-                /*=== Closing Add-Post-Modal after Adding Process ===*/
-            })
-    }
-
-
-
-    //API REQUEST FOR Register 
-    function handleRegisterClicked() {
-        const registerUrl = `${baseUrl}/register`
-        let username = document.getElementById('username').value
-        let password = document.getElementById('password').value
-        let name = document.getElementById('name-input').value
-        let userImage = document.getElementById('image-input').files[0]
-
-
-        const form = new FormData();
-        form.append("username", username);
-        form.append("password", password,);
-        form.append("name", name);
-        form.append('image', userImage);
-
-
-        /* Closing Register-Modal after Register Process */
-        const modal = document.getElementById('register-modal')
-        const modalInstance = bootstrap.Modal.getInstance(modal)
-        modalInstance.hide()
-        /*=== Closing Register-Modal after Register Process ===*/
-
-        axios.post(`${baseUrl}/register`, form)
-            .then((response) => {
-                console.log(response.data);
-                localStorage.setItem('token', response.data.token)
-                localStorage.setItem('user', JSON.stringify(response.data.user))
-
-                showAlert('Logged In Successfully')
-                tokenCheck()
-            }).catch(function (error) {
-                console.log(error)
-                const message = error.response.data.message
-                showAlert(message)
-            })
-    }
-
-
-    //REMOVE THE TOKEN FROM LOCALSTORAGE WHEN LOGGING OUT
-    function logout() {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-
-        showAlert('Logged Out Successfully')
-        document.getElementById('login-success-alert').classList[0]
-
-        tokenCheck()
-
-    }
-
-
-    //SHOW THE APPROPRIATE BUTTONS BASED ON THE TOKEN STATUS
-    function tokenCheck() {
-        const loginAndRegisterDiv = document.getElementById('login-register-div')
-        const logoutDiv = document.getElementById('logout-div')
-        const addPostButton = document.getElementById('add-btn')
-
-        const token = localStorage.getItem('token')
-        //EXTRACT THE USER FROM LOCAL STORAGE AND CONVERT IT TO AN OBJECT USING JSON.PARSE
-        const userObject = JSON.parse(localStorage.getItem('user'))
-        const userName = document.getElementById('user-name')
-        const userImage = document.getElementById('user-image')
-
-
-
-        if (token) {
-            loginAndRegisterDiv.setAttribute('style', 'display:none !important');
-            logoutDiv.setAttribute('style', 'display:flex;justify-content:center;align-items:center;gap:20px !important');
-            addPostButton.style.display = 'block'
-            userName.innerHTML = userObject.username
-            userImage.src = userObject.profile_image
-
-
-        } else {
-            loginAndRegisterDiv.setAttribute('style', 'display:flex !important');
-            logoutDiv.setAttribute('style', 'display:none !important');
-            addPostButton.style.display = 'none'
-            userName.innerHTML = ''
-            userImage.src = ''
-
-        }
-    }
-
-    /*================================================================
-      Call the tokenCheck function directly in order to know the token status,
-      and based on knowing the token status,
-      the appropriate buttons are shown
-      ================================================================*/
-    tokenCheck()
-    /*=================================================================*/
-
-
-    //ALERT LOGIC FOR LOGIN && LOGOUT    
-    function showAlert(customMassage) {
-
-
-        $('#login-success-alert').fadeIn(1000);
-        document.getElementById('login-success-alert').innerHTML = customMassage
-        setTimeout(function () {
-            $('#login-success-alert').fadeOut(1000);
-            document.getElementById('login-success-alert').innerHTML = customMassage
-
-        }, 3000);
-    }
-
-
 
 
     //API REQUEST FOR CREATE-POST
@@ -584,6 +477,19 @@
             })
     }
 
+
+    /*================================================================
+      Call the tokenCheck function directly in order to know the token status,
+      and based on knowing the token status,
+      the appropriate buttons are shown
+      ================================================================*/
+    tokenStatus()
+    /*=================================================================*/
+
+    function postClicked(postId) {
+        /* alert(postId) */
+        window.location = `postDetails.html?postId=${postId}`
+    }
 
 
 </script>
