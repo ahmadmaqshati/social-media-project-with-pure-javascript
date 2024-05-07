@@ -17,7 +17,7 @@
 </head>
 <style>
     body {
-        background-color: #80808087;
+        background-color: #9c27b052;
 
     }
 
@@ -222,7 +222,6 @@
 
     <!-- MAIN CONTENT -->
     <div class="container">
-
         <!-- USER'S POST -->
         <div class="d-flex justify-content-center align-items-center row">
             <div class="col-9">
@@ -237,7 +236,7 @@
         <!-- POST -->
         <div class="d-flex justify-content-center align-items-center">
             <div class="col-9">
-                <!---------------- Post ------------->
+                <!---------------- PostContent ------------->
                 <div class="card" id="card">
                     <div class="card-header">
                         <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
@@ -261,31 +260,51 @@
                                     d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
                             </svg>
                             <span>(3) Comments</span>
+                            <hr>
                         </div>
                     </div>
+
+                    <!-- COMMENTS -->
+                    <div id="comments"
+                        style="background-color:#be939340;display: flex;flex-direction: column;gap: 20px;"
+                        class="container">
+                        <!-- COMMENT -->
+                        <div style="display: flex;align-items:center;gap:7px">
+                            <img src="./Pofile Pictures/user.png" alt="" alt="" class="rounded-circle"
+                                style="width:30px;height:30px ">
+                            <div
+                                style="background-color: #F0F2F5;border-radius:22px;display: flex;flex-direction: column;padding: 4px 13px; line-height: 1;">
+                                <b style="margin-top: 7px;font-weight: 800;margin-bottom: 10px;">Mai Gamal</b>
+                                <p>hjjhjhjh</p>
+
+                            </div>
+                        </div>
+                        <!--==== COMMENT =====-->
+                    </div>
+                    <!--==== COMMENTS =====-->
+
+
                 </div>
-                <!--////////////// Post /////////////-->
-
+                <!--============== PostContent ============-->
             </div>
 
-            <!--// POST //-->
-
         </div>
-        <!-- POST -->
+        <!-- ===POST=== -->
 
-        <!--// MAIN CONTENT //-->
-
-
-        <!--ALERT FOR LOGIN && LOGOUT -->
-        <div style="display: flex;justify-content: end;height: 16px;">
-            <div class="alert-div alert2-div alert alert-danger position-fixed fw-medium fs-5 text-center z-3 "
-                id="login-success-alert" role="alert" style="display:none;">
-                <!-- text-success -->
-            </div>
+    </div>
+    <!--// MAIN CONTENT //-->
 
 
+    <!--ALERT FOR LOGIN && LOGOUT -->
+    <div style="display: flex;justify-content: end;height: 16px;">
+        <div class="alert-div alert2-div alert alert-danger position-fixed fw-medium fs-5 text-center z-3 "
+            id="login-success-alert" role="alert" style="display:none;">
+            <!-- text-success -->
         </div>
-        <!-- =====ALERT FOR LOGIN && LOGOUT===== -->
+
+
+    </div>
+    <!-- =====ALERT FOR LOGIN && LOGOUT===== -->
 
 
 </body>
@@ -299,41 +318,56 @@
         .then((response) => {
             const post = response.data.data
             const author = post.author
+            const comments = post.comments
 
             document.getElementById('username-span').innerHTML = author.username
 
+            let commentsArray = ``
+            for (comment of comments) {
+                commentsArray += `
+                <div style="display: flex;align-items:center;gap:7px">
+                            <img src="${comment.author.profile_image}" alt="" alt="" class="rounded-circle"
+                                style="width:30px;height:30px ">
+                            <div
+                                style="background-color: #F0F2F5;border-radius:22px;display: flex;flex-direction: column;padding: 4px 13px; line-height: 1;">
+                                <b style="margin-top: 7px;font-weight: 800;margin-bottom: 10px;">${comment.author.username}</b>
+                                <p>${comment.body}</p>
+
+                            </div>
+                </div>`
+            }
+
             document.getElementById('card').innerHTML = `
-            <div class="card-header">
-                        <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
-                            src="${author.profile_image}" alt="">
-                        <b>@${author.username}</b>
-                    </div>
-
+                <div class="card-header">
+                         <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
+                             src="${author.profile_image}" alt="">
+                         <b>@${author.username}</b>
+                </div>
+ 
                     <div class="card-body">
-                        <img class="w-100" src="${post.image}" alt="">
-                        <h6 class="fs-6 fw-medium text-secondary">${post.created_at}</h6>
-                        <h4>${post.title ? post.title : ''}</h4>
-                        <p>${post.body}</p>
-                        <hr>
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-pen" viewBox="0 0 16 16">
-                                <path
-                                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
-                            </svg>
-                            <span>(${post.comments_count}) Comments</span>
-                        </div>
+                         <img class="w-100" src="${post.image}" alt="">
+                         <h6 class="fs-6 fw-medium text-secondary">${post.created_at}</h6>
+                         <h4>${post.title ? post.title : ''}</h4>
+                         <p>${post.body}</p>
+                         <hr>
+                         <div>
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-pen" viewBox="0 0 16 16">
+                                 <path
+                                     d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+                             </svg>
+                             <span>(${post.comments_count}) Comments</span>
+                         </div>
                     </div>
-
-
-            `
+                                 
+                     <!-- COMMENTS -->
+                     <div id="comments" style="background-color:#be939340;display: flex;flex-direction: column;gap: 20px;"class="container">
+                        ${commentsArray}
+                    </div>
+                    <!--==== COMMENTS =====--> `
 
         })
-    /* API REQUEST FOR SHOW POST */
-
-
-
-
+    /*=====API REQUEST FOR SHOW POST=====*/
 
     tokenStatus()
 </script>
