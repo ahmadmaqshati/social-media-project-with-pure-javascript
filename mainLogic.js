@@ -1,8 +1,5 @@
 const baseUrl = 'https://tarmeezacademy.com/api/v1'
 
-
-
-
 //SHOW THE APPROPRIATE BUTTONS BASED ON THE TOKEN STATUS
 function tokenStatus() {
     const loginAndRegisterDiv = document.getElementById('login-register-div')
@@ -56,7 +53,6 @@ function handleLoginClicked() {
             console.log(response.data);
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('user', JSON.stringify(response.data.user))
-
 
             /* Closing Login-Modal after Login Process */
             const modal = document.getElementById('login-modal')
@@ -113,13 +109,11 @@ function handleRegisterClicked() {
     let name = document.getElementById('name-input').value
     let userImage = document.getElementById('image-input').files[0]
 
-
     const form = new FormData();
     form.append("username", username);
     form.append("password", password,);
     form.append("name", name);
     form.append('image', userImage);
-
 
     /* Closing Register-Modal after Register Process */
     const modal = document.getElementById('register-modal')
