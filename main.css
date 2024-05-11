@@ -1,0 +1,156 @@
+body {
+    background-image: url('./stars1.png');
+}
+
+a {
+    /* animate__animated animate__backInDown */
+    display: inline-block;
+    margin: 0 0.5rem;
+    animation: backInDown;
+    /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s;
+}
+
+
+.hr {
+    margin: 1rem 0;
+    border-top: var(--bs-border-width) solid;
+    opacity: 1;
+    color: #d8bfd817;
+}
+
+.email,
+.title,
+.body,
+.comments {
+    color: white;
+}
+
+.icon {
+    background: #b547c899;
+    width: 3%;
+    border-radius: 50px;
+}
+
+body {
+    background-color: #351B32;
+
+}
+
+.card {
+    margin-bottom: 44px;
+    box-shadow: 0 10px 10px rgb(0 0 0 / 40%);
+
+}
+
+.alert-div {
+    background: #00800061;
+    color: #198754;
+    position: fixed;
+    top: 0;
+    width: 25%;
+    text-align: center;
+    z-index: -1;
+}
+
+#add-btn {
+    background-color: #cd32c8;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    right: 7%;
+    bottom: 6%;
+    cursor: pointer;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+    /* animate__animated animate__backInLeft */
+    display: inline-block;
+    margin: 0 0.5rem;
+    animation: backInLeft;
+    /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 3s;
+}
+
+.login:hover {
+    padding: 0px 40px;
+}
+
+.register:hover {
+    padding: 0px 40px;
+}
+
+.login,
+.register {
+    border: 3px solid #CE93D8;
+    transition: all 1s ease 0s;
+    box-shadow: 0px 0px 18px #768876;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+
+
+
+
+.logout {
+    border: 3px solid #CE93D8;
+    transition: all 1s ease 0s;
+    box-shadow: 0px 0px 18px #eb41417a;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+.login,
+.register,
+.logout {
+    /* animate__animated animate__bounce */
+    display: inline-block;
+    margin: 0 0.5rem;
+
+    animation: jello;
+    /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 3s;
+    /* don't forget to set a duration! */
+}
+
+
+
+.nav-link {
+    font-weight: 900;
+    color: white;
+    transition: all 1s;
+}
+
+.nav-link:hover {
+    color: #b9ffff;
+    letter-spacing: 2px;
+
+}
+
+.nav-link:after {
+    content: "";
+    display: block;
+    background-color: purple;
+    width: 0%;
+    height: 3px;
+    transition: width 0.7s;
+}
+
+.nav-link:hover:after {
+    width: 100%;
+
+}
+
+.edit-btn {
+    float: right;
+    padding: 0 10px;
+    border: 3px solid #CE93D8;
+    transition: all 1s ease 0s;
+    box-shadow: 0px 0px 18px #768876;
+    font-weight: 500;
+    color: #b547c8;
+}
+
+.edit-btn:hover {
+    padding: 0px 40px;
+    background: #e6b3df;
+}

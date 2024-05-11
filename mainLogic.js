@@ -1,6 +1,6 @@
 const baseUrl = 'https://tarmeezacademy.com/api/v1'
 
-//SHOW THE APPROPRIATE BUTTONS BASED ON THE TOKEN STATUS
+//SHOW THE APPROPRIATE BUTTONS AND INPUTS BASED ON THE TOKEN STATUS
 function tokenStatus() {
     const loginAndRegisterDiv = document.getElementById('login-register-div')
     const logoutDiv = document.getElementById('logout-div')
@@ -11,8 +11,7 @@ function tokenStatus() {
     const userObject = JSON.parse(localStorage.getItem('user'))
     const userName = document.getElementById('user-name')
     const userImage = document.getElementById('user-image')
-
-
+    const inputBtnDiv = document.getElementById('input-btn-div')
 
     if (token) {
         loginAndRegisterDiv.setAttribute('style', 'display:none !important');
@@ -22,6 +21,11 @@ function tokenStatus() {
         }
         userName.innerHTML = userObject.username
         userImage.src = userObject.profile_image
+        if (inputBtnDiv != null) {
+            inputBtnDiv.setAttribute('style', 'display:flex !important');
+            /* inputBtnDiv.style.display = 'flex' */
+        }
+
 
 
     } else {
@@ -31,10 +35,12 @@ function tokenStatus() {
             addPostButton.style.display = 'none'
         }
 
-
         userName.innerHTML = ''
         userImage.src = ''
-
+        if (inputBtnDiv != null) {
+            inputBtnDiv.setAttribute('style', 'display:none !important');
+            /* inputBtnDiv.style.display = 'none' */
+        }
     }
 }
 
@@ -59,9 +65,9 @@ function handleLoginClicked() {
             const modalInstance = bootstrap.Modal.getInstance(modal)
             modalInstance.hide()
             /*=== Closing Login-Modal after Login Process ===*/
-
-            showAlert('Logged In Successfully')
             tokenStatus()
+            showAlert('Logged In Successfully')
+
         }).catch((error) => {
             console.log(error);
             const message = error.response.data.message

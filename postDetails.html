@@ -285,8 +285,8 @@
                     <!--==== COMMENTS =====-->
 
                     <!-- input and button for comment -->
-                    <div class="input-group mb-3 mt-3" style="width: 98%;margin: auto;">
-                        <input id="comment-input" style="background:#F0F2F5" type="area" class="form-control"
+                    <div id="input-btn-div" class="input-group mb-3 mt-3" style="width: 98%;margin: auto; ">
+                        <input id=" comment-input" style="background:#F0F2F5" type="area" class="form-control"
                             placeholder="add your comment">
                         <div class="input-group-append" onclick="handleSendComment()">
                             <button class="btn btn-outline-primary" type="button">send</button>
@@ -327,7 +327,6 @@
 
     /* API REQUEST FOR SHOW POST */
     function getOnePost() {
-
         axios.get(`${baseUrl}/posts/${id}`)
             .then((response) => {
                 const post = response.data.data
@@ -381,7 +380,7 @@
                     <!--==== COMMENTS =====-->
                     
                     <!-- input and button for comment -->
-                    <div class="input-group mb-3 mt-3" style="width: 98%;margin: auto;">
+                    <div id='input-btn-div' class="input-group mb-3 mt-3" style="width: 98%;margin: auto;">
                         <input id="comment-input" style="background:#F0F2F5" type="area" class="form-control"
                             placeholder="add your comment">
                         <div class="input-group-append" onclick="handleSendComment()">
@@ -397,6 +396,7 @@
 
     }
     /*=====API REQUEST FOR SHOW POST=====*/
+    getOnePost()
 
 
     /* API REQUEST FOR CREATE COMMENT */
@@ -414,9 +414,10 @@
 
         axios.post(`${baseUrl}/posts/${id}/comments`, params, headers)
             .then((response) => {
+                getOnePost()
                 const message = 'The Comment has been Sent Successfully '
                 showAlert(message)
-                getOnePost()
+
             }).catch(function (error) {
                 let errorMessage = error.response.data.message
                 showAlert(errorMessage)

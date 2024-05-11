@@ -8,6 +8,9 @@
     <!-- import bootsrapt -->
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <link rel="stylesheet" href="./main.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js">
     </script>
@@ -15,89 +18,6 @@
     <!-- import axios -->
     <script src="node_modules/axios/dist/axios.min.js"></script>
 </head>
-<style>
-    body {
-        background-color: #E8E8E8;
-
-    }
-
-    .card {
-        margin-bottom: 44px;
-        box-shadow: 0 10px 10px rgb(0 0 0 / 40%);
-
-    }
-
-    .alert-div {
-        background: #00800061;
-        color: #198754;
-        position: fixed;
-        top: 0;
-        width: 25%;
-        text-align: center;
-        z-index: -1;
-    }
-
-    /*  .alert2-div {
-        background: #ff00006b;
-        color: #ff000096;
-    } */
-
-
-    #add-btn {
-        background-color: #292b5d;
-        width: 90px;
-        height: 90px;
-        line-height: 90px;
-        right: 7%;
-        bottom: 6%;
-        cursor: pointer;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
-
-    }
-
-    .login:hover {
-        padding: 0px 40px;
-    }
-
-    .register:hover {
-        padding: 0px 40px;
-    }
-
-    .login,
-    .register {
-        border: 3px solid #CE93D8;
-        transition: all 1s ease 0s;
-        box-shadow: 0px 0px 18px #768876;
-        border-radius: 20px;
-        font-weight: 500;
-    }
-
-
-    .logout {
-        border: 3px solid #CE93D8;
-        transition: all 1s ease 0s;
-        box-shadow: 0px 0px 18px #eb41417a;
-        border-radius: 20px;
-        font-weight: 700;
-    }
-
-    .nav-link {
-        font-weight: 600;
-    }
-
-    .nav-link:after {
-        content: "";
-        display: block;
-        background-color: gray;
-        width: 0%;
-        height: 3px;
-        transition: width 0.7s;
-    }
-
-    .nav-link:hover:after {
-        width: 100%;
-    }
-</style>
 
 
 <body>
@@ -227,15 +147,16 @@
     </div>
     <!-- =====ALERT FOR LOGIN && LOGOUT===== -->
 
-
     <!-- NAVIGATION BAR  -->
-    <div class="container" style="margin-bottom: 66px;margin-top: 50px;">
+    <div class="test container" style="margin-bottom: 66px;margin-top: 50px;">
 
         <div class="d-flex justify-content-center align-items-center">
             <div class="col-9">
-                <nav class="navbar navbar-expand-lg bg-body-tertiary shadow rounded-2 pt-2">
+                <nav style="background-color:#252525 !important"
+                    class="navbar navbar-expand-lg bg-body-tertiary shadow rounded-2 pt-2">
+                    <!-- animate__zoomOutRight -->
                     <div class="container-fluid">
-                        <a class="nav-link navbar-brand" href="home.html">Tarmeez</a>
+                        <a class="nav-link navbar-brand animate__animated animate__faster" href="home.html">Tarmeez</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -244,7 +165,7 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                    <a class="nav-link" aria-current="page" href="#">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Profile</a>
@@ -265,7 +186,7 @@
                                 <div id="logout-div">
                                     <img class="rounded-circle" id="user-image" style="width:40px;height: 40px;"
                                         src="./Pofile Pictures/todo.png" alt="">
-                                    <b id="user-name">yarob999</b>
+                                    <b style="color:white" id="user-name">yarob999</b>
                                     <button onclick="logout()" type="button"
                                         class="logout btn btn-outline-danger">Logout</button>
                                 </div>
@@ -291,29 +212,30 @@
                 <div id="posts">
 
                     <!---------------- Post1 ------------->
-                    <div class="card">
+                    <div class="card" style="background-color: #252525;">
                         <div class="card-header">
                             <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
                                 src="./Pofile Pictures/user.png" alt="">
-                            <b>@yarhmm</b>
+                            <b class="email">@yarhmm</b>
+                            <span><button class="edit-btn" style="float: right;">Edit</button></span>
                         </div>
 
                         <div class="card-body">
                             <img class="w-100" src="./placeholders/1.jpeg" alt="">
                             <h6 class="fs-6 fw-medium text-secondary">2 min ago</h6>
-                            <h4>Hello World</h4>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit
+                            <h4 class="title">Hello World</h4>
+                            <p class="body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit
                                 illum voluptatum
                                 perferendis facilis fuga ducimus? Accusamus, soluta aliquid dignissimos labore
                                 consequatur excepturi dolor quia harum, provident iure accusantium porro a.</p>
-                            <hr>
+                            <hr class="hr">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pen" viewBox="0 0 16 16">
+                                    class="icon bi bi-pen" viewBox="0 0 16 16">
                                     <path
                                         d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
                                 </svg>
-                                <span>(3) Comments</span>
+                                <span class="comments">(3) Comments</span>
                             </div>
                         </div>
                     </div>
@@ -361,6 +283,7 @@
 </body>
 <script src="./mainLogic.js"></script>
 <script>
+
     let currentPage = 1
     let lastPage = 1
     //===== INFINITE SCROLL ====//
@@ -389,27 +312,28 @@
                 const posts = response.data.data
                 for (let post of posts) {
                     document.getElementById('posts').innerHTML += `
-            <div class="card">
+            <div class="card" style="background-color: #252525;">
                  <div class="card-header">
                      <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
                          src=${post.author.profile_image} alt="">
-                     <b>${post.author.email ? post.author.email : ''}</b>
+                     <b class='email'>${post.author.email ? post.author.email : ''}</b>
+                     <button class="edit-btn" style="float: right;">Edit</button>
                  </div>
 
             <div class="card-body" onClick='postClicked(${post.id})' style='cursor: pointer;'>
-                     <img class="w-100" src=${post.image} alt="">
+                     <img class="w-100" src=${post.image} alt="" style='opacity:0.8'>
                      <h6 class="fs-6 fw-medium text-secondary">${post.created_at}</h6>
-                     <h4>${post.title ? post.title : ''}</h4>
+                     <h4 class='title'>${post.title ? post.title : ''}</h4>
                     
-                     <p>${post.body}</p>
-                     <hr>
+                     <p class='body'>${post.body}</p>
+                     <hr class='hr'>
                      <div style="display: flex;align-items: center;gap:6px;">
                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-pen" viewBox="0 0 16 16">
-                             <path
+                             <path style='color: white;'
                                  d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
                          </svg>
-                         <span>
+                         <span class='comments'>
                              (${post.comments_count}) Comments
                          </span>
                         
@@ -489,6 +413,7 @@
     function postClicked(postId) {
         /* alert(postId) */
         window.location = `postDetails.html?postId=${postId}`
+
     }
 
 
