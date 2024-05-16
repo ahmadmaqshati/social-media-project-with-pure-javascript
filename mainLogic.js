@@ -1,47 +1,48 @@
 const baseUrl = 'https://tarmeezacademy.com/api/v1'
 
 //SHOW THE APPROPRIATE BUTTONS AND INPUTS BASED ON THE TOKEN STATUS
-function tokenStatus() {
+function setupUIBasedOnTokenStatus() {
+    const token = localStorage.getItem('token')
     const loginAndRegisterDiv = document.getElementById('login-register-div')
     const logoutDiv = document.getElementById('logout-div')
     const addPostButton = document.getElementById('add-btn')
-
-    const token = localStorage.getItem('token')
-    //EXTRACT THE USER FROM LOCAL STORAGE AND CONVERT IT TO AN OBJECT USING JSON.PARSE
-    const userObject = JSON.parse(localStorage.getItem('user'))
-    const userName = document.getElementById('user-name')
-    const userImage = document.getElementById('user-image')
     const inputBtnDiv = document.getElementById('input-btn-div')
-
     if (token) {
         loginAndRegisterDiv.setAttribute('style', 'display:none !important');
         logoutDiv.setAttribute('style', 'display:flex;justify-content:center;align-items:center;gap:20px !important');
-        if (addPostButton != null) {
+        if (addPostButton != null && inputBtnDiv != null) {
             addPostButton.style.display = 'block'
         }
-        userName.innerHTML = userObject.username
-        userImage.src = userObject.profile_image
         if (inputBtnDiv != null) {
             inputBtnDiv.setAttribute('style', 'display:flex !important');
-            /* inputBtnDiv.style.display = 'flex' */
         }
-
-
-
-    } else {
+        const user = getCurrentUser()
+        document.getElementById('user-name').innerHTML = user.username
+        document.getElementById('user-image').src = user.profile_image
+    }
+    else {
         loginAndRegisterDiv.setAttribute('style', 'display:flex !important');
         logoutDiv.setAttribute('style', 'display:none !important');
-        if (addPostButton != null) {
+        if (addPostButton != null && inputBtnDiv != null) {
             addPostButton.style.display = 'none'
         }
 
-        userName.innerHTML = ''
-        userImage.src = ''
         if (inputBtnDiv != null) {
             inputBtnDiv.setAttribute('style', 'display:none !important');
-            /* inputBtnDiv.style.display = 'none' */
+
         }
     }
+}
+/*EXTRACT THE USER FROM LOCALSTORAGE then CONVERT IT TO AN OBJECT USING (JSON.parse)
+  AND STORE IT INSIDE A VARIABLE NAMED USER*/
+function getCurrentUser() {
+    let user = null
+    const storageUser = localStorage.getItem("user")
+
+    if (storageUser != null) {
+        user = JSON.parse(storageUser)
+    }
+    return user
 }
 
 /*--------------------------AUTH FUNCTION----------------------------*/
@@ -65,8 +66,10 @@ function handleLoginClicked() {
             const modalInstance = bootstrap.Modal.getInstance(modal)
             modalInstance.hide()
             /*=== Closing Login-Modal after Login Process ===*/
-            tokenStatus()
+            setupUIBasedOnTokenStatus()
             showAlert('Logged In Successfully')
+            getPosts()
+
 
         }).catch((error) => {
             console.log(error);
@@ -82,6 +85,10 @@ function handleLoginClicked() {
         })
 }
 
+
+
+
+
 //REMOVE THE TOKEN FROM LOCALSTORAGE WHEN LOGGING OUT
 function logout() {
     localStorage.removeItem('token')
@@ -90,7 +97,9 @@ function logout() {
     showAlert('Logged Out Successfully')
     document.getElementById('login-success-alert').classList[0]
 
-    tokenStatus()
+    setupUIBasedOnTokenStatus()
+    getPosts()
+
 
 }
 
@@ -134,7 +143,7 @@ function handleRegisterClicked() {
             localStorage.setItem('user', JSON.stringify(response.data.user))
 
             showAlert('Logged In Successfully')
-            tokenStatus()
+            setupUIBasedOnTokenStatus()
         }).catch(function (error) {
             console.log(error)
             const message = error.response.data.message

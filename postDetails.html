@@ -17,7 +17,8 @@
 </head>
 <style>
     body {
-        background-color: #9c27b052;
+        background-image: url('./stars1.png');
+        background-color: #00000052;
 
     }
 
@@ -57,6 +58,8 @@
     .register:hover {
         padding: 0px 40px;
     }
+
+
 
     .login,
     .register {
@@ -319,7 +322,6 @@
 <!-------------------------Script--------------------------------->
 <script src="./mainLogic.js"></script>
 <script>
-    tokenStatus()
 
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('postId')
@@ -327,7 +329,7 @@
 
     /* API REQUEST FOR SHOW POST */
     function getOnePost() {
-        axios.get(`${baseUrl}/posts/${id}`)
+        return axios.get(`${baseUrl}/posts/${id}`)
             .then((response) => {
                 const post = response.data.data
                 const author = post.author
@@ -392,11 +394,15 @@
 
 
 
+
             })
 
     }
     /*=====API REQUEST FOR SHOW POST=====*/
-    getOnePost()
+    getOnePost().then(() => {
+        setupUIBasedOnTokenStatus()
+    })
+
 
 
     /* API REQUEST FOR CREATE COMMENT */
