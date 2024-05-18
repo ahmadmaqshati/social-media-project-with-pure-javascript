@@ -1,8 +1,4 @@
 body {
-    /* background-image: url('./stars1.png'); */
-    /* background: url('./stars1.png'); */
-    /* background-color: #351B32; */
-    /* background: linear-gradient(#01012e, #01012e1a); */
     background-color: #0E0E39;
 }
 
@@ -42,7 +38,7 @@ a {
 .card {
     margin-bottom: 44px;
     box-shadow: 0 10px 10px rgb(0 0 0 / 40%);
-
+    background-color: black
 }
 
 .alert-div {
@@ -60,12 +56,13 @@ a {
     width: 120px;
     height: 120px;
     line-height: 120px;
-
 }
 
 #add-btn {
     transition: all 0.7s;
 }
+
+
 
 #add-btn {
     background-color: #1f041c;
@@ -148,7 +145,18 @@ a {
 
 }
 
-.edit-btn {
+.user-img {
+    transition: all .5s;
+}
+
+.user-img:hover {
+    /*  opacity: 0.9;
+    background-color: var(--orange); */
+    transform: rotate(360deg);
+}
+
+.edit-btn,
+.delete-btn {
     float: right;
     padding: 0 10px;
     border: 3px solid #CE93D8;
@@ -156,9 +164,24 @@ a {
     box-shadow: 0px 0px 18px #768876;
     font-weight: 500;
     color: #b547c8;
+    float: right;
+}
+
+.edit-btn {
+    margin-right: 7px;
+}
+
+.delete-btn {
+    background-color: red;
+    color: snow;
 }
 
 .edit-btn:hover {
+    padding: 0px 40px;
+    background: #e6b3df;
+}
+
+.delete-btn:hover {
     padding: 0px 40px;
     background: #e6b3df;
 }

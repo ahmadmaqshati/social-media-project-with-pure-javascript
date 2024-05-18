@@ -1,5 +1,7 @@
 const baseUrl = 'https://tarmeezacademy.com/api/v1'
 
+setupUIBasedOnTokenStatus()
+
 //SHOW THE APPROPRIATE BUTTONS AND INPUTS BASED ON THE TOKEN STATUS
 function setupUIBasedOnTokenStatus() {
     const token = localStorage.getItem('token')
@@ -85,10 +87,6 @@ function handleLoginClicked() {
         })
 }
 
-
-
-
-
 //REMOVE THE TOKEN FROM LOCALSTORAGE WHEN LOGGING OUT
 function logout() {
     localStorage.removeItem('token')
@@ -152,3 +150,113 @@ function handleRegisterClicked() {
 }
 /*==========================AUTH FUNCTION=============================*/
 
+
+
+
+
+
+
+
+
+function handleDeleteClicked(postObject) {
+    console.log(JSON.parse(decodeURIComponent(postObject)));
+    let post = JSON.parse(decodeURIComponent(postObject))
+    document.getElementById('delete-post-modal-input').value = post.id
+
+}
+function handleDeleteConfirm() {
+    let postId = document.getElementById('delete-post-modal-input').value
+    const token = localStorage.getItem('token')
+    let url = `${baseUrl}/posts/${postId}`
+    let headers = {
+        'Authorization': `Bearer ${token}`
+    }
+    axios.delete(url, {
+        headers: headers
+    })
+        .then((response) => {
+            console.log(response);
+            getPosts()
+            /* Closing Delete-Modal after Login Process */
+            const modal = document.getElementById('delete-post-modal')
+            const modalInstance = bootstrap.Modal.getInstance(modal)
+            modalInstance.hide()
+            /*=== Closing Delete-Modal after Login Process ===*/
+            showAlert('Deleted In Successfully')
+        }).catch((error) => {
+            const message = error.response.data.message
+            console.log(message);
+            showAlert(message)
+        })
+}
+
+
+
+function handleEditClicked(postObject) {
+    console.log(JSON.parse(decodeURIComponent(postObject)));
+    let post = JSON.parse(decodeURIComponent(postObject))
+    console.log(post.image);
+    document.getElementById('post-id-input').value = post.id
+
+    document.getElementById('post-modal-title').innerHTML = 'Edit Post'
+    document.getElementById('post-modal-btn').innerHTML = 'Update'
+    document.getElementById('post-title').value = post.title
+    document.getElementById('post-body').value = post.body
+    document.getElementById('post-image').files[0] = post.image
+    let editPostModal = new bootstrap.Modal(document.getElementById('add-post-modal'))
+    editPostModal.toggle()
+}
+
+
+
+//=====API REQUEST FOR CREATE-POST====//
+function createNewPost() {
+    let postId = document.getElementById('post-id-input').value
+    /* alert(postId) */
+
+    let isCreate = postId == null || postId == ''
+    /* alert(isCreate) */
+
+    const title = document.getElementById('post-title').value
+    const body = document.getElementById('post-body').value
+    const image = document.getElementById('post-image').files[0]
+
+    const form = new FormData();
+    form.append('title', title);
+    form.append('body', body);
+    form.append('image', image);
+
+    const token = localStorage.getItem('token')
+    const headers = { 'Authorization': `Bearer ${token}` }
+    let url = ``
+
+    if (isCreate) {
+        url = `${baseUrl}/posts`
+    } else {
+        form.append("_method", "put");
+        url = `${baseUrl}/posts/${postId}`
+    }
+
+    axios.post(url, form, { headers: headers })
+        .then((response) => {
+            console.log(response);
+            showAlert('New Post Has Been Created In Successfully')
+            getPosts()
+            /* Closing Login-Modal after Login Process */
+            const modal = document.getElementById('add-post-modal')
+            const modalInstance = bootstrap.Modal.getInstance(modal)
+            modalInstance.hide()
+            /*=== Closing Login-Modal after Login Process ===*/
+        }).catch((error) => {
+            console.log(error.response.data.message);
+            const message = error.response.data.message
+            showAlert(message)
+            /* Closing Login-Modal after Login Process */
+            const modal = document.getElementById('add-post-modal')
+            const modalInstance = bootstrap.Modal.getInstance(modal)
+            modalInstance.hide()
+            /*=== Closing Login-Modal after Login Process ===*/
+
+        })
+}
+//=====//API REQUEST FOR CREATE-POST//====//

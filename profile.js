@@ -1,30 +1,31 @@
+baseUrl = 'https://tarmeezacademy.com/api/v1'
 
-let currentPage = 1
-let lastPage = 1
-//===== INFINITE SCROLL ====//
-window.addEventListener("scroll", function () {
-    const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
-    console.log(endOfPage);
-    if (endOfPage && currentPage < lastPage) {
-        getPosts(currentPage + 1, false)
-        currentPage++
-    }
-});
-//=====// INFINITE SCROLL //====//
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('userId')
+console.log(id);
 
-
-//=====API Request for Posts====//
-function getPosts(page = 1, reload = true) {
-    axios.get(`${baseUrl}/posts?limit=4&page=${page}`)
+function getUser() {
+    axios.get(`${baseUrl}/users/${id}`)
         .then((response) => {
-            console.log(response.data);
-            lastPage = response.data.meta.last_page
-
-            if (reload) {
-                document.getElementById('posts').innerHTML = ''
-            }
-
+            console.log(response.data.data);
+            const user = response.data.data
+            document.getElementById('user-email').innerHTML = user.email
+            document.getElementById('user-username').innerHTML = user.username
+            document.getElementById('name').innerHTML = user.name
+            document.getElementById('user-posts-count').innerHTML = user.posts_count
+            document.getElementById('user-comments-count').innerHTML = user.comments_count
+            document.getElementById('user-img').src = user.profile_image
+        })
+}
+getUser()
+//=====API Request for Posts====//
+function getPosts() {
+    axios.get(`${baseUrl}/users/${id}/posts`)
+        .then((response) => {
+            console.log(response.data.data);
+            /* const posts = response.data.data */
             const posts = response.data.data
+            document.getElementById('posts').innerHTML = ''
             for (let post of posts) {
                 let user = getCurrentUser()
                 let isMyPost = user != null && post.author.id == user.id
@@ -36,17 +37,12 @@ function getPosts(page = 1, reload = true) {
                 }
                 document.getElementById('posts').innerHTML += `
         <div class="card">
-            <div class="card-header">
-                <span onclick='postHeaderClicked(${post.author.id})'>
-                    <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
+             <div class="card-header">
+                 <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
                      src=${post.author.profile_image} alt="">
-                    <b class='email'>${post.author.email ? post.author.email : ''}</b>
-                </span>
-                 
-                    ${Delete}
-                       
-                    ${edit}
-                                
+                 <b class='email'>${post.author.email ? post.author.email : ''}</b>
+                    ${Delete}     
+                    ${edit}   
             <div>   
         </div>
              
@@ -70,8 +66,7 @@ function getPosts(page = 1, reload = true) {
                      <span id=post-tags${post.id}>
                                    
                      </span>
-                     
-              
+    
                      </div>
              </div>
          </div>
@@ -92,58 +87,8 @@ getPosts()
 
 
 
+/* function showPostsOneuser() {
+    console.log(id);
+} */
 
-
-
-/*================================================================
-  Call the tokenCheck function directly in order to know the token status,
-  and based on knowing the token status,
-  the appropriate buttons are shown
-  ================================================================*/
-setupUIBasedOnTokenStatus()
-/*=================================================================*/
-
-function postClicked(postId) {
-    /* alert(postId) */
-    window.location = `postDetails.html?postId=${postId}`
-}
-
-function handleAddBtnClicked() {
-    document.getElementById('post-id-input').value = ''
-
-    document.getElementById('post-modal-title').innerHTML = 'Create A New Post'
-    document.getElementById('post-modal-btn').innerHTML = 'Create'
-    document.getElementById('post-title').value = ''
-    document.getElementById('post-body').value = ''
-    document.getElementById('post-image').files[0] = ''
-
-    let postModal = new bootstrap.Modal(document.getElementById('add-post-modal'), {})
-    postModal.toggle()
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function profileClicked() {
-    let user = getCurrentUser()
-    /* alert(user.id) */
-    let userId = user.id
-    window.location = `profile.html?userId=${userId}`
-}
-
-function postHeaderClicked(userI) {
-    window.location = `profile.html?userId=${userI}`
-
-} 
+/* showPostsOneuser() */

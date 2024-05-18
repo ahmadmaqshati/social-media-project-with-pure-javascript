@@ -18,7 +18,23 @@
     <!-- import axios -->
     <script src="node_modules/axios/dist/axios.min.js"></script>
 </head>
+<style>
+    .posts-comments-count {
+        font-weight: 100;
+        font-size: 2rem;
 
+    }
+
+    .posts-comments-count h1 {
+        font-size: 4rem !important;
+        font-weight: 100;
+    }
+
+    .post-count h1,
+    .Comments-count h1 {
+        font-weight: 200;
+    }
+</style>
 
 <body>
     <section>
@@ -179,7 +195,7 @@
                     <nav style="background-color:#0000ff00 !important;border: 1px solid #1717af59;box-shadow: 0 5px 33px blue !important;"
                         class="navbar navbar-expand-lg bg-body-tertiary shadow rounded-2 pt-2">
                         <!-- animate__zoomOutRight -->
-                        <div class="container-fluid">
+                        <div class="container">
                             <a class="nav-link navbar-brand animate__animated animate__faster"
                                 href="home.html">Tarmeez</a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -193,12 +209,11 @@
                                         <a class="nav-link" aria-current="page" href="#">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" onclick="profileClicked()"
-                                            style="cursor: pointer;">Profile</a>
-                                    </li><!-- href="profile.html" -->
+                                        <a class="nav-link" href="#">Profile</a>
+                                    </li>
                                 </ul>
 
-                                <div class=" w-100 d-flex justify-content-end">
+                                <div class="w-100 d-flex justify-content-end">
 
                                     <div id="login-register-div" class="d-flex">
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#login-modal"
@@ -229,8 +244,58 @@
         </div>
         <!--// NAVIGATION BAR //-->
 
-
         <!-- MAIN CONTENT  -->
+
+        <!-- user-main-info -->
+        <div class="test container" style="margin-bottom: 66px;margin-top: 50px;">
+
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="col-9 container" style="background-color:slateblue;height: 200px;">
+                    <div id="AllUserData" class="row">
+                        <!-- user-image -->
+                        <div id="user-image-profile" class="col-2"
+                            style="display: flex;flex-direction: column;justify-content:space-evenly;">
+                            <img id="user-img" class="rounded-circle" src="./flower.jpg" alt=""
+                                style="height: 125px;width:125px;">
+                        </div>
+                        <!-- //user-image //-->
+
+                        <!-- user-info -->
+                        <div class="col-4"
+                            style="color: white;display: flex;flex-direction: column;justify-content: space-evenly;">
+                            <h5 id="user-email">yarob.hm@gmail.com</h5>
+                            <h5 id="user-username">Yarob</h5>
+                            <h5 id="name">Yarob99</h5>
+                        </div>
+                        <!-- //user-info// -->
+
+                        <!-- Posts&&Comments-count -->
+                        <div class="col-4 posts-comments-count"
+                            style="color: white;display: flex;flex-direction: column;justify-content: center;height: 200px;">
+                            <div class="post-count" style="display: flex;align-items: center;gap: 10px;">
+                                <h1 id="user-posts-count">13</h1>
+                                <h1>:</h1>
+                                Posts
+                            </div>
+
+                            <div class="Comments-count" style="display: flex;align-items: center;gap: 10px;">
+                                <h1 id="user-comments-count">13</h1>
+                                <h1>:</h1>
+                                Comments
+                            </div>
+
+                        </div>
+                        <!-- //Posts&&Comments-count //-->
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- //user-main-info// -->
+
+        <!-- user-posts -->
         <div class="container mt-4">
             <div class="d-flex justify-content-center">
                 <div class="col-9">
@@ -267,52 +332,19 @@
                             </div>
                         </div>
                         <!--////////////// Post1 /////////////-->
-
-                        <!---------------- Post2 ------------->
-                        <div class="card">
-                            <div class="card-header">
-                                <img class="rounded-circle border border-1" style="width: 4%; height: 4vh;"
-                                    src="./Pofile Pictures/user.png" alt="">
-                                <b>@yarhmm</b>
-                            </div>
-
-                            <div class="card-body">
-                                <img class="w-100" src="./placeholders/1.jpeg" alt="">
-                                <h6 class="fs-6 fw-medium text-secondary">2 min ago</h6>
-                                <h4>Hello World</h4>
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit illum voluptatum
-                                    perferendis facilis fuga ducimus? Accusamus, soluta aliquid dignissimos labore
-                                    consequatur excepturi dolor quia harum, provident iure accusantium porro a.</p>
-                                <hr>
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-pen" viewBox="0 0 16 16">
-                                        <path
-                                            d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
-                                    </svg>
-                                    <span>(3) Comments</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!--////////////// Post2 /////////////-->
-
-
-
                     </div>
                     <!--// Posts //-->
                 </div>
             </div>
         </div>
+        <!-- //user-posts// -->
+
+
         <!--// MAIN CONTENT  //-->
-
-
     </section>
-
-
-
 </body>
+<script src="./profile.js"></script>
 <script src="./mainLogic.js"></script>
-<script src="./home.js"></script>
 
 
 
