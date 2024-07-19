@@ -37,14 +37,20 @@ function getPosts() {
                 }
                 document.getElementById('posts').innerHTML += `
         <div class="card">
-             <div class="card-header">
-                 <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
-                     src=${post.author.profile_image} alt="">
-                 <b class='email'>${post.author.email ? post.author.email : ''}</b>
-                    ${Delete}     
-                    ${edit}   
-            <div>   
-        </div>
+            <div class="card-header post-header">
+                <div>
+                    <img class="post-user-img rounded-circle border border-1" style="width: 4%; height: 4vh"
+                    src=${post.author.profile_image} alt="">
+                    <b class='email'>${post.author.email ? post.author.email : ''}</b>    
+                 </div>
+                
+                 <div class='post-delete-edit'>
+                 ${edit}  
+                 ${Delete}     
+                   
+                 </div>
+                           
+            </div>   
              
         <div class="card-body" onClick='postClicked(${post.id})' style='cursor: pointer;'>
                  <img class="w-100" src=${post.image} alt="" style='opacity:1'>
@@ -70,6 +76,7 @@ function getPosts() {
                      </div>
              </div>
          </div>
+       </div>  
      `
                 let currentPostTagsId = `post-tags${post.id}`
                 document.getElementById(currentPostTagsId).innerHTML = ''

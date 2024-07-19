@@ -9,6 +9,9 @@
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 
+    <link rel="stylesheet" href="./main.css">
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js">
     </script>
 
@@ -16,9 +19,16 @@
     <script src="node_modules/axios/dist/axios.min.js"></script>
 </head>
 <style>
+    .post-titile {
+        font-size: 1.4rem;
+    }
+
+    .input-group {
+        padding: 0 16px;
+    }
+
     body {
         background-image: url('./stars1.png');
-        background-color: #00000052;
 
     }
 
@@ -93,6 +103,10 @@
 
     .nav-link:hover:after {
         width: 100%;
+    }
+
+    .b {
+        color: black !important;
     }
 </style>
 
@@ -169,29 +183,29 @@
     <!--=================================MODALS======================================-->
 
     <!-- NAVIGATION BAR  -->
-    <div class="container" style="margin-bottom: 66px;margin-top: 50px;">
+    <div class="test container" style="margin-bottom: 66px;margin-top: 50px;">
 
         <div class="d-flex justify-content-center align-items-center">
             <div class="col-9">
-                <nav class="navbar navbar-expand-lg bg-body-tertiary shadow rounded-2 pt-2">
+                <nav style="background-color:#0000ff00 !important;border: 1px solid #1717af59;box-shadow: 0 5px 33px blue !important;"
+                    class="navbar navbar-expand-lg bg-body-tertiary shadow rounded-2 pt-2">
                     <div class="container-fluid">
-                        <a class="nav-link navbar-brand" href="home.html">Tarmeez</a>
+                        <div style="display: flex;align-items: center;">
+                            <a class="nav-link navbar-brand animate__animated animate__faster"
+                                href="home.html">Tarmeez</a>
+                            <a class="nav-link" aria-current="page" href="home.html">Home</a>
+                            <a class="nav-link" onclick="profileClicked()" style="cursor: pointer;">Profile</a>
+                        </div>
+
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                             aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="profile.html">Profile</a>
-                                </li>
-                            </ul>
 
-                            <div class="w-100 d-flex justify-content-end">
+
+                            <div class=" w-100 d-flex justify-content-end">
 
                                 <div id="login-register-div" class="d-flex">
                                     <button type="button" data-bs-toggle="modal" data-bs-target="#login-modal"
@@ -203,9 +217,11 @@
                                 </div>
 
                                 <div id="logout-div">
-                                    <img class="rounded-circle" id="user-image" style="width:40px;height: 40px;"
-                                        src="./Pofile Pictures/todo.png" alt="">
-                                    <b id="user-name">yarob999</b>
+                                    <div>
+                                        <img class="user-img rounded-circle" id="user-image"
+                                            style="width:40px;height: 40px;" src="./Pofile Pictures/todo.png" alt="">
+                                        <b style="color:white" id="user-name">yarob999</b>
+                                    </div>
                                     <button onclick="logout()" type="button"
                                         class="logout btn btn-outline-danger">Logout</button>
                                 </div>
@@ -228,7 +244,7 @@
         <!-- USER'S POST -->
         <div class="d-flex justify-content-center align-items-center row">
             <div class="col-9">
-                <h1 style="color:#4c3c34;">
+                <h1 style="color:#f8a479;text-shadow: 0 2px 9px red;">
                     <span id="username-span">Ahmad's</span>
                     post
                 </h1>
@@ -275,7 +291,7 @@
                         <div style="display: flex;align-items:center;gap:7px">
                             <img src="./Pofile Pictures/user.png" alt="" alt="" class="rounded-circle"
                                 style="width:30px;height:30px ">
-                            <div
+                            <div class="comments-input"
                                 style="background-color: #F0F2F5;border-radius:22px;display: flex;flex-direction: column;padding: 4px 13px; line-height: 1;">
                                 <b style="margin-top: 7px;font-weight: 800;margin-bottom: 10px;">Mai Gamal</b>
                                 <p>hjjhjhjh</p>
@@ -288,7 +304,8 @@
                     <!--==== COMMENTS =====-->
 
                     <!-- input and button for comment -->
-                    <div id="input-btn-div" class="input-group mb-3 mt-3" style="width: 98%;margin: auto; ">
+                    <div id="input-btn-div" class="input-group mb-3 mt-3"
+                        style="width: 98%;margin: auto; padding: 0 16px !important;">
                         <input id=" comment-input" style="background:#F0F2F5" type="area" class="form-control"
                             placeholder="add your comment">
                         <div class="input-group-append" onclick="handleSendComment()">
@@ -321,6 +338,11 @@
 
 <!-------------------------Script--------------------------------->
 <script src="./mainLogic.js"></script>
+
+
+<script src="./home.js"></script>
+<!-- <script src="./profile.js"></script>  -->
+
 <script>
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -343,9 +365,9 @@
                 <div style="display: flex;align-items:center;gap:7px">
                             <img src="${comment.author.profile_image}" alt="" alt="" class="rounded-circle"
                                 style="width:30px;height:30px ">
-                            <div
+                            <div class="comments-input"
                                 style="background-color: #F0F2F5;border-radius:22px;display: flex;flex-direction: column;padding: 4px 13px; line-height: 1;">
-                                <b style="margin-top: 7px;font-weight: 800;margin-bottom: 10px;">${comment.author.username}</b>
+                                <b class='b' style="margin-top: 7px;font-weight: 800;margin-bottom: 10px;">${comment.author.username}</b>
                                 <p>${comment.body}</p>
 
                             </div>
@@ -354,7 +376,7 @@
 
                 document.getElementById('card').innerHTML = `
                 <div class="card-header">
-                         <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
+                         <img class=" post-user-img rounded-circle border border-1" style="width: 4%; height: 4vh"
                              src="${author.profile_image}" alt="">
                          <b>@${author.username}</b>
                 </div>
@@ -376,21 +398,21 @@
                     </div>
                                  
                      <!-- COMMENTS -->
-                     <div id="comments" style="background-color:#be939340;display: flex;flex-direction: column;gap: 20px;"class="container">
-                        ${commentsArray}
-                    </div>                    
-                    <!--==== COMMENTS =====-->
-                    
-                    <!-- input and button for comment -->
-                    <div id='input-btn-div' class="input-group mb-3 mt-3" style="width: 98%;margin: auto;">
-                        <input id="comment-input" style="background:#F0F2F5" type="area" class="form-control"
-                            placeholder="add your comment">
-                        <div class="input-group-append" onclick="handleSendComment()">
-                            <button class="btn btn-outline-primary" type="button">send</button>
-                        </div>
+<div id="comments" style="background-color:#be939340;display: flex;flex-direction: column;gap: 20px;" class="container">
+    ${commentsArray}
+</div>
+<!--==== COMMENTS =====-->
 
-                    </div>
-                    <!-- ===input and button for comment ====-->`
+<!-- input and button for comment -->
+<div id='input-btn-div' class="input-group mb-3 mt-3" style="width: 98%;margin: auto;padding: 0 16px !important;">
+    <input id="comment-input" style="background:#F0F2F5" type="area" class="form-control"
+        placeholder="add your comment">
+    <div class="input-group-append" onclick="handleSendComment()">
+        <button class="btn btn-outline-primary coment-btn" type="button">send</button>
+    </div>
+
+</div>
+<!-- ===input and button for comment ====-->`
 
 
 
@@ -429,7 +451,7 @@
                 showAlert(errorMessage)
             })
     }
-    /* ===API REQUEST FOR CREATE COMMENT=== */
+/* ===API REQUEST FOR CREATE COMMENT=== */
 </script>
 <!----==========================Script=============================-->
 

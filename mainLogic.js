@@ -249,7 +249,7 @@ function createNewPost() {
             /*=== Closing Login-Modal after Login Process ===*/
         }).catch((error) => {
             console.log(error.response.data.message);
-            const message = error.response.data.message
+            let message = error.response.data.message
             showAlert(message)
             /* Closing Login-Modal after Login Process */
             const modal = document.getElementById('add-post-modal')
@@ -260,3 +260,6 @@ function createNewPost() {
         })
 }
 //=====//API REQUEST FOR CREATE-POST//====//
+
+
+

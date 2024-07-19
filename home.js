@@ -1,4 +1,3 @@
-
 let currentPage = 1
 let lastPage = 1
 //===== INFINITE SCROLL ====//
@@ -38,7 +37,7 @@ function getPosts(page = 1, reload = true) {
         <div class="card">
             <div class="card-header">
                 <span onclick='postHeaderClicked(${post.author.id})'>
-                    <img class="rounded-circle border border-1" style="width: 4%; height: 4vh"
+                    <img class="post-user-img rounded-circle border border-1" style="width: 4%; height: 4vh"
                      src=${post.author.profile_image} alt="">
                     <b class='email'>${post.author.email ? post.author.email : ''}</b>
                 </span>
@@ -138,7 +137,6 @@ function handleAddBtnClicked() {
 
 function profileClicked() {
     let user = getCurrentUser()
-    /* alert(user.id) */
     let userId = user.id
     window.location = `profile.html?userId=${userId}`
 }
